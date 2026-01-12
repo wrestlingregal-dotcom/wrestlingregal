@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>REGAL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+html{scroll-behavior:smooth}
+
+body{
+background:
+radial-gradient(circle at top left,rgba(160,80,255,.35),transparent 40%),
+radial-gradient(circle at bottom right,rgba(120,40,200,.35),transparent 40%),
+linear-gradient(135deg,#0b0014,#1a0030);
+color:#fff;overflow-x:hidden
+}
+
+/* NAVBAR */
+header{
+position:sticky;top:0;z-index:1000;
+backdrop-filter:blur(12px);
+background:rgba(10,0,20,.6);
+box-shadow:0 0 35px rgba(160,80,255,.45)
+}
+.nav{
+max-width:1200px;margin:auto;
+padding:18px 25px;
+display:flex;align-items:center;justify-content:space-between
+}
+.logo img{height:70px}
+nav a{
+color:#fff;text-decoration:none;margin-left:28px;
+font-size:14px;letter-spacing:1px;position:relative;cursor:pointer
+}
+nav a::after{
+content:'';position:absolute;width:0;height:2px;
+background:#b76bff;left:0;bottom:-6px;transition:.3s
+}
+nav a:hover::after{width:100%}
+
+/* HOME SECTIONS STYLES */
+
+/* SLIDER */
+.slider-container{margin-top:30px;overflow:hidden}
+.slider{display:flex;transition:1s ease-in-out}
+.slide{min-width:100%}
+.slide img{
+width:100%;
+aspect-ratio:3360/1127;
+object-fit:contain;
+display:block
+}
+
+/* QUOTE */
+.quote-section{
+max-width:1000px;margin:90px auto;
+padding:40px;
+display:flex;gap:30px;
+background:rgba(255,255,255,.05);
+border-radius:22px;
+box-shadow:0 0 40px rgba(180,90,255,.35)
+}
+.quote-profile{
+width:120px;height:120px;
+border-radius:18px;
+overflow:hidden;
+border:3px solid rgba(180,90,255,.9);
+box-shadow:0 0 25px rgba(180,90,255,.8)
+}
+.quote-profile img{width:100%;height:100%;object-fit:cover}
+.quote-text{font-size:18px;line-height:1.6}
+.quote-text span{
+display:block;margin-top:15px;
+font-weight:600;color:#d3a4ff
+}
+
+/* BLOGS */
+.blog-section{
+max-width:1200px;
+margin:80px auto;
+padding:50px;
+background:rgba(255,255,255,.05);
+border-radius:26px;
+box-shadow:0 0 45px rgba(180,90,255,.35)
+}
+.blog-section h1{
+text-align:center;
+font-weight:800;
+letter-spacing:4px;
+margin-bottom:50px
+}
+.blog-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px
+}
+.blog-card{
+background:rgba(255,255,255,.05);
+border-radius:20px;
+overflow:hidden;
+text-decoration:none;color:#fff;
+transition:.4s;
+box-shadow:0 0 20px rgba(0,0,0,.4)
+}
+.blog-card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 45px rgba(180,90,255,.8)
+}
+.blog-card img{
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover
+}
+.blog-title{
+padding:20px;
+font-weight:700;
+font-size:16px
+}
+
+/* TRANSITION TEXT */
+.cena-title{
+text-align:center;
+font-size:72px;
+font-weight:800;
+letter-spacing:4px;
+margin:140px 0 60px;
+color:#e0b3ff;
+text-shadow:0 0 40px rgba(180,90,255,.85)
+}
+
+/* CENA SECTION */
+.cena-wrap{padding-bottom:140px}
+
+.main-box{
+background:rgba(140,70,220,.35);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.18);
+max-width:1100px;
+margin:auto;
+padding:40px;
+border-radius:22px;
+overflow:hidden;
+position:relative;
+box-shadow:0 0 60px rgba(180,90,255,.45)
+}
+
+.content{
+display:flex;
+align-items:center;
+gap:50px;
+transition:opacity .6s ease
+}
+.content.hidden{opacity:0;pointer-events:none}
+
+/* EXACT ORIGINAL EYE CSS */
+.face-container{
+position:relative;
+width:420px;
+max-width:100%;
+}
+.face-container img.face{
+width:100%;
+display:block;
+}
+.eye{
+position:absolute;
+width:14px;
+height:14px;
+transform:translate(-50%,-50%);
+pointer-events:none;
+}
+.eye img{
+width:100%;
+height:100%;
+position:absolute;
+transition:transform 0.04s ease-out;
+}
+.eye.left{left:48.98%;top:16.02%}
+.eye.right{left:57.41%;top:17.22%}
+
+.headline{
+font-size:56px;
+font-weight:800;
+line-height:1.1;
+text-transform:uppercase;
+margin-bottom:30px
+}
+.btn{
+background:#fff;
+color:#000;
+border:none;
+padding:18px 36px;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+border-radius:40px;
+transition:transform .2s ease
+}
+.btn:hover{transform:scale(1.05)}
+
+.alt-content{
+position:absolute;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+opacity:0;
+pointer-events:none;
+transition:opacity .6s ease;
+padding:40px;
+}
+.alt-content.visible{
+opacity:1;
+pointer-events:auto;
+}
+.alt-text{
+font-size:48px;
+font-weight:800;
+text-transform:uppercase;
+margin-bottom:30px;
+}
+
+/* COLLECTIONS SECTION */
+.collections-section{
+display:none; /* hidden initially */
+max-width:1400px;margin:90px auto;padding:0 25px;text-align:center;
+}
+.collections-section h1{
+font-size:48px;font-weight:800;margin-bottom:10px;
+}
+.collections-section p{font-size:16px;color:#d3a4ff;margin-bottom:60px;}
+.most-viewed-grid{
+display:grid;grid-template-columns:repeat(4,1fr);gap:35px;
+}
+.post-box{
+border-radius:22px;overflow:hidden;aspect-ratio:1/1;
+background:rgba(255,255,255,0.06);
+box-shadow:0 0 35px rgba(180,90,255,0.35);
+transition: transform 0.45s ease, box-shadow 0.45s ease;
+}
+.post-box img{width:100%;height:100%;object-fit:cover;}
+.post-box:hover{transform: translateY(-14px) scale(1.03);box-shadow:0 0 70px rgba(180,90,255,0.85);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.blog-grid{grid-template-columns:1fr}
+.quote-section{flex-direction:column;text-align:center}
+.content{flex-direction:column}
+.cena-title{font-size:42px}
+.most-viewed-grid{grid-template-columns:1fr}
+.collections-section h1{font-size:34px}
+}
+@media (max-width:1024px){
+.most-viewed-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+<div class="logo">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/add-a-heading-2.png">
+</div>
+<nav>
+<a id="homeLink">HOME</a>
+<a id="collectionsLink">COLLECTIONS</a>
+<a href="https://onlyslamsbyregal.wordpress.com/about/" target="_blank">ABOUT US</a>
+<a href="#blogs" id="blogsLink">BLOGS</a>
+<a href="https://linktr.ee/WrestlingRegal" target="_blank">CONTACT US</a>
+</nav>
+</div>
+</header>
+
+<!-- HOME SECTION -->
+<div id="homeSection">
+
+<!-- SLIDER -->
+<div class="slider-container">
+<div class="slider" id="slider">
+<a class="slide" href="https://www.instagram.com/p/DLvh8KBh2V_/" target="_blank"><img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/3.png"></a>
+<a class="slide" href="https://www.instagram.com/p/DRT-xU2jcw5/" target="_blank"><img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/2.png"></a>
+<a class="slide" href="https://www.instagram.com/p/DI0VG1vAnEx/" target="_blank"><img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/1.png"></a>
+</div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-section">
+<div class="quote-profile">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2026/01/375524987_145431788621697_7762762743990623666_n.jpg">
+</div>
+<div class="quote-text">
+“Pro wrestling is a live interactive drama reality TV show that intertwines athletic ability into all of this,
+They are real actors portraying genuine characters.”
+<span>– Nicholas Stavropoulos</span>
+</div>
+</div>
+
+<!-- BLOGS -->
+<div class="blog-section" id="blogs">
+<h1>BLOGS</h1>
+<div class="blog-grid">
+<a class="blog-card" href="https://onlyslamsbyregal.wordpress.com/2026/01/08/roman-reigns-vs-the-rock-will-it-ever-happen/" target="_blank">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2026/01/add-a-heading-1.png">
+<div class="blog-title">Roman Reigns vs The Rock – Will It Ever Happen?</div>
+</a>
+<a class="blog-card" href="https://onlyslamsbyregal.wordpress.com/2026/01/09/john-cena-every-year-how-wwes-biggest-star-became-a-cultural-icon/" target="_blank">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2026/01/wrestling_regal_1765875212_3788758348053989899_19090286453.webp">
+<div class="blog-title">John Cena Every Year: WWE’s Biggest Cultural Icon</div>
+</a>
+<a class="blog-card" href="https://onlyslamsbyregal.wordpress.com/2025/11/22/is-wwe-too-corporate-now-why-gen-alpha-may-reject-wrestling/" target="_blank">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2026/01/add-a-heading-4.png">
+<div class="blog-title">Is WWE Too Corporate Now? Why Gen Alpha May Reject Wrestling</div>
+</a>
+</div>
+</div>
+
+<!-- TRANSITION -->
+<div class="cena-title">JOHN CENA CAN SEE YOU!</div>
+
+<!-- CENA -->
+<div class="cena-wrap">
+<div class="main-box">
+<div class="content" id="mainContent">
+<div class="face-container" id="faceArea">
+<img class="face" src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2026/01/2.png">
+<div class="eye left"><img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2026/01/4.png"></div>
+<div class="eye right"><img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2026/01/3.png"></div>
+</div>
+
+<div>
+<div class="headline">Hustle,<br>Loyalty<br>And Respect</div>
+<button class="btn" id="hideBtn">YOU CAN'T SEE ME</button>
+</div>
+</div>
+
+<div class="alt-content" id="altContent">
+<div class="alt-text">Follow our Instagram page<br>@wrestling_regal</div>
+<button class="btn" id="bringBackBtn">BRING CENA BACK</button>
+</div>
+
+</div>
+</div>
+
+</div> <!-- END HOME SECTION -->
+
+<!-- COLLECTIONS SECTION -->
+<div id="collectionsSection" class="collections-section">
+<h1><b>MOST VIEWED POSTS OF WRESTLING REGAL</b></h1>
+<p>as of 24th Dec 2025</p>
+
+<div class="most-viewed-grid">
+<a href="https://www.instagram.com/p/DP5305JiEJm/?img_index=1" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/then-vs-now.png">
+</a>
+<a href="https://www.instagram.com/p/DRmBsYYDaSG/?img_index=1" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/belts-collection.png">
+</a>
+<a href="https://www.instagram.com/p/DOYD60-ANMC/" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/aj-lee.png">
+</a>
+<a href="https://www.instagram.com/p/DNz_EeLwCZ2/" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/every-wwe-champ.png">
+</a>
+<a href="https://www.instagram.com/p/DOfwl9aDZ1Q/" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/every-spinner.png">
+</a>
+<a href="https://www.instagram.com/p/DPn4BIdgLM_/" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/judgement-day.png">
+</a>
+<a href="https://www.instagram.com/p/DRT-xU2jcw5/" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/masked-wrestlers.png">
+</a>
+<a href="https://www.instagram.com/p/DRMRROGDdjD/" target="_blank" class="post-box">
+<img src="https://onlyslamsbyregal.wordpress.com/wp-content/uploads/2025/12/grand-slam.png">
+</a>
+</div>
+</div>
+
+<script>
+/* SLIDER */
+let slider=document.getElementById("slider"),i=0;
+setInterval(()=>{i=(i+1)%3;slider.style.transform=`translateX(-${i*100}%)`},4000);
+
+/* EYE JS */
+const eyes=document.querySelectorAll(".eye img");
+const faceArea=document.getElementById("faceArea");
+const maxMove=2;
+
+faceArea.addEventListener("mousemove",(e)=>{
+eyes.forEach(eye=>{
+const box=eye.parentElement.getBoundingClientRect();
+const cx=box.left+box.width/2;
+const cy=box.top+box.height/2;
+const dx=e.clientX-cx;
+const dy=e.clientY-cy;
+const angle=Math.atan2(dy,dx);
+const distance=Math.min(maxMove,Math.hypot(dx,dy));
+eye.style.transform=`translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`;
+});
+});
+
+/* HIDE/SHOW CENA */
+const mainContent=document.getElementById("mainContent");
+const altContent=document.getElementById("altContent");
+document.getElementById("hideBtn").onclick=()=>{mainContent.classList.add("hidden");altContent.classList.add("visible");};
+document.getElementById("bringBackBtn").onclick=()=>{mainContent.classList.remove("hidden");altContent.classList.remove("visible");};
+
+/* NAVIGATION */
+const homeLink=document.getElementById("homeLink");
+const collectionsLink=document.getElementById("collectionsLink");
+const blogsLink=document.getElementById("blogsLink");
+const homeSection=document.getElementById("homeSection");
+const collectionsSection=document.getElementById("collectionsSection");
+
+homeLink.onclick=()=>{homeSection.style.display='block';collectionsSection.style.display='none';window.scrollTo(0,0);}
+collectionsLink.onclick=()=>{homeSection.style.display='none';collectionsSection.style.display='block';window.scrollTo(0,0);}
+blogsLink.onclick=()=>{homeSection.style.display='block';collectionsSection.style.display='none';document.getElementById("blogs").scrollIntoView({behavior:'smooth'});}
+</script>
+
+</body>
+</html>
