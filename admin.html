@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+
+  <!-- Login -->
+  <div id="login">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- Admin tools (hidden until login) -->
+  <div id="admin-tools" style="display:none;">
+    <input type="text" id="wrestler-name" placeholder="Wrestler Name">
+    <input type="text" id="wrestler-description" placeholder="Description">
+    <input type="text" id="wrestler-image" placeholder="Image URL">
+    <button onclick="addWrestler()">Add Wrestler</button>
+  </div>
+
+  <!-- Firebase scripts -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+    // Paste your Firebase config here
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Login function
+    window.login = async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        document.getElementById("login").style.display = "none";
+        document.getElementById("admin-tools").style.display = "block";
+        alert("Logged in!");
+      } catch(err) {
+        alert(err.message);
+      }
+    }
+
+    // Add wrestler function
+    window.addWrestler = async () => {
+      const name = document.getElementById("wrestler-name").value;
+      const description = document.getElementById("wrestler-description").value;
+      const image = document.getElementById("wrestler-image").value;
+
+      await addDoc(collection(db, "wrestlers"), {
+        name,
+        description,
+        image
+      });
+
+      alert("Wrestler added!");
+    }
+  </script>
+</body>
+</html>
